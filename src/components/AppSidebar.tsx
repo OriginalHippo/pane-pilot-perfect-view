@@ -15,7 +15,12 @@ import {
   Briefcase, 
   Users, 
   Settings,
-  Calendar
+  Calendar,
+  Route,
+  DollarSign,
+  BarChart3,
+  UsersRound,
+  MessageSquare
 } from "lucide-react";
 
 const items = [
@@ -23,6 +28,11 @@ const items = [
   { title: "Jobs", url: "/jobs", icon: Briefcase },
   { title: "Clients", url: "/clients", icon: Users },
   { title: "Schedule", url: "/schedule", icon: Calendar },
+  { title: "Routes", url: "/routes", icon: Route },
+  { title: "Invoicing", url: "/invoicing", icon: DollarSign },
+  { title: "Analytics", url: "/analytics", icon: BarChart3 },
+  { title: "Team", url: "/team", icon: UsersRound },
+  { title: "Customer Portal", url: "/customer-portal", icon: MessageSquare },
   { title: "Settings", url: "/settings", icon: Settings },
 ];
 

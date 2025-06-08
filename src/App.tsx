@@ -9,6 +9,11 @@ import Dashboard from "./pages/Dashboard";
 import Jobs from "./pages/Jobs";
 import Clients from "./pages/Clients";
 import Schedule from "./pages/Schedule";
+import Routes as RoutesPage from "./pages/Routes";
+import Invoicing from "./pages/Invoicing";
+import Analytics from "./pages/Analytics";
+import Team from "./pages/Team";
+import CustomerPortal from "./pages/CustomerPortal";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
@@ -26,6 +31,11 @@ const App = () => (
             <Route path="jobs" element={<Jobs />} />
             <Route path="clients" element={<Clients />} />
             <Route path="schedule" element={<Schedule />} />
+            <Route path="routes" element={<RoutesPage />} />
+            <Route path="invoicing" element={<Invoicing />} />
+            <Route path="analytics" element={<Analytics />} />
+            <Route path="team" element={<Team />} />
+            <Route path="customer-portal" element={<CustomerPortal />} />
             <Route path="settings" element={<Settings />} />
           </Route>
           <Route path="*" element={<NotFound />} />
