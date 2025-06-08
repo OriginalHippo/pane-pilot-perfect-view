@@ -27,7 +27,7 @@ const items = [
 ];
 
 export function AppSidebar() {
-  const { collapsed } = useSidebar();
+  const { state } = useSidebar();
   const location = useLocation();
   const currentPath = location.pathname;
 
@@ -38,8 +38,10 @@ export function AppSidebar() {
     return currentPath.startsWith(path);
   };
 
+  const collapsed = state === "collapsed";
+
   return (
-    <Sidebar className={collapsed ? "w-14" : "w-64"} collapsible>
+    <Sidebar className={collapsed ? "w-14" : "w-64"} collapsible="icon">
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
