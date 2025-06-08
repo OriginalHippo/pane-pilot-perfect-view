@@ -9,7 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import Jobs from "./pages/Jobs";
 import Clients from "./pages/Clients";
 import Schedule from "./pages/Schedule";
-import Routes as RoutesPage from "./pages/Routes";
+import RoutesPage from "./pages/Routes";
 import Invoicing from "./pages/Invoicing";
 import Analytics from "./pages/Analytics";
 import Team from "./pages/Team";
