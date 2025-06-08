@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -18,9 +17,18 @@ import {
   Award,
   TrendingUp
 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const Team = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const { toast } = useToast();
+
+  const handleTeamAction = (action: string, memberName: string) => {
+    toast({
+      title: "Team Action",
+      description: `${action} for ${memberName}`,
+    });
+  };
 
   const teamMembers = [
     {
@@ -100,7 +108,10 @@ const Team = () => {
           <h1 className="text-3xl font-bold">Team Management</h1>
           <p className="text-muted-foreground">Manage your cleaning crew and track performance</p>
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-700">
+        <Button 
+          className="bg-blue-600 hover:bg-blue-700"
+          onClick={() => handleTeamAction("Add Team Member", "New Member")}
+        >
           <Plus className="w-4 h-4 mr-2" />
           Add Team Member
         </Button>
@@ -200,10 +211,17 @@ const Team = () => {
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => handleTeamAction("View Details", member.name)}
+                  >
                     View Details
                   </Button>
-                  <Button size="sm">
+                  <Button 
+                    size="sm"
+                    onClick={() => handleTeamAction("Contact", member.name)}
+                  >
                     Contact
                   </Button>
                 </div>

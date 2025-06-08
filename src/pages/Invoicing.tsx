@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -18,9 +17,19 @@ import {
   Clock,
   AlertTriangle
 } from "lucide-react";
+import { CreateInvoiceDialog } from "@/components/CreateInvoiceDialog";
+import { useToast } from "@/hooks/use-toast";
 
 const Invoicing = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const { toast } = useToast();
+
+  const handleInvoiceAction = (action: string, invoiceId: string) => {
+    toast({
+      title: "Invoice Action",
+      description: `${action} performed on invoice ${invoiceId}`,
+    });
+  };
 
   const invoices = [
     {
@@ -95,10 +104,7 @@ const Invoicing = () => {
           <h1 className="text-3xl font-bold">Invoicing & Payments</h1>
           <p className="text-muted-foreground">Manage invoices and track payments</p>
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-700">
-          <Plus className="w-4 h-4 mr-2" />
-          Create Invoice
-        </Button>
+        <CreateInvoiceDialog />
       </div>
 
       {/* Summary Stats */}
@@ -136,7 +142,11 @@ const Invoicing = () => {
                 <Filter className="w-4 h-4 mr-2" />
                 Filter
               </Button>
-              <Button variant="outline" size="sm">
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => handleInvoiceAction("Export", "all invoices")}
+              >
                 <Download className="w-4 h-4 mr-2" />
                 Export
               </Button>
@@ -177,18 +187,29 @@ const Invoicing = () => {
                 </div>
                 
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => handleInvoiceAction("View", invoice.id)}
+                  >
                     <Eye className="w-3 h-3 mr-1" />
                     View
                   </Button>
                   {invoice.status === "draft" && (
-                    <Button size="sm">
+                    <Button 
+                      size="sm"
+                      onClick={() => handleInvoiceAction("Send", invoice.id)}
+                    >
                       <Send className="w-3 h-3 mr-1" />
                       Send
                     </Button>
                   )}
                   {invoice.status === "pending" && (
-                    <Button size="sm" variant="outline">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => handleInvoiceAction("Remind", invoice.id)}
+                    >
                       <Send className="w-3 h-3 mr-1" />
                       Remind
                     </Button>

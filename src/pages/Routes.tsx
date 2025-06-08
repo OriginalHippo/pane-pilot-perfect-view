@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,9 +14,25 @@ import {
   Plus,
   Search
 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const Routes = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const { toast } = useToast();
+
+  const handleRouteAction = (action: string, routeName: string) => {
+    toast({
+      title: "Route Action",
+      description: `${action} performed on "${routeName}"`,
+    });
+  };
+
+  const handleOptimizeAll = () => {
+    toast({
+      title: "Auto-Optimization Started",
+      description: "All routes are being optimized for maximum efficiency",
+    });
+  };
 
   const routes = [
     {
@@ -74,11 +89,14 @@ const Routes = () => {
           <p className="text-muted-foreground">Optimize your daily routes for maximum efficiency</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline">
+          <Button variant="outline" onClick={handleOptimizeAll}>
             <Zap className="w-4 h-4 mr-2" />
             Auto-Optimize All
           </Button>
-          <Button className="bg-blue-600 hover:bg-blue-700">
+          <Button 
+            className="bg-blue-600 hover:bg-blue-700"
+            onClick={() => handleRouteAction("Create Route", "New Route")}
+          >
             <Plus className="w-4 h-4 mr-2" />
             Create Route
           </Button>
@@ -160,11 +178,20 @@ const Routes = () => {
               </div>
 
               <div className="flex gap-2 pt-2">
-                <Button variant="outline" size="sm" className="flex-1">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="flex-1"
+                  onClick={() => handleRouteAction("View", route.name)}
+                >
                   <Route className="w-3 h-3 mr-1" />
                   View
                 </Button>
-                <Button size="sm" className="flex-1">
+                <Button 
+                  size="sm" 
+                  className="flex-1"
+                  onClick={() => handleRouteAction("Optimize", route.name)}
+                >
                   <Zap className="w-3 h-3 mr-1" />
                   Optimize
                 </Button>

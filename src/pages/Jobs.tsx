@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -22,10 +21,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { CreateJobDialog } from "@/components/CreateJobDialog";
+import { useToast } from "@/hooks/use-toast";
 
 const Jobs = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const { toast } = useToast();
+
+  const handleJobAction = (action: string, jobTitle: string) => {
+    toast({
+      title: "Job Action",
+      description: `${action} action performed on "${jobTitle}"`,
+    });
+  };
 
   const jobs = [
     {
@@ -113,10 +122,7 @@ const Jobs = () => {
           <h1 className="text-3xl font-bold">Jobs</h1>
           <p className="text-muted-foreground">Manage your window cleaning appointments</p>
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-700">
-          <Plus className="w-4 h-4 mr-2" />
-          Create Job
-        </Button>
+        <CreateJobDialog />
       </div>
 
       {/* Search and Filters */}
@@ -204,8 +210,18 @@ const Jobs = () => {
                     </div>
                   </div>
                   <div className="flex gap-2">
-                    <Button size="sm" variant="outline">Edit</Button>
-                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => handleJobAction("Edit", job.title)}
+                    >
+                      Edit
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      className="bg-blue-600 hover:bg-blue-700"
+                      onClick={() => handleJobAction(job.status === "scheduled" ? "Start" : "View", job.title)}
+                    >
                       {job.status === "scheduled" ? "Start" : "View"}
                     </Button>
                   </div>

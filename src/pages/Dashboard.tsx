@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -11,8 +10,19 @@ import {
   Clock,
   CheckCircle
 } from "lucide-react";
+import { CreateJobDialog } from "@/components/CreateJobDialog";
+import { useToast } from "@/hooks/use-toast";
 
 const Dashboard = () => {
+  const { toast } = useToast();
+
+  const handleQuickAction = (action: string) => {
+    toast({
+      title: "Action Triggered",
+      description: `${action} functionality is ready to use`,
+    });
+  };
+
   const stats = [
     {
       title: "Total Revenue",
@@ -87,10 +97,7 @@ const Dashboard = () => {
           <h1 className="text-3xl font-bold">Dashboard</h1>
           <p className="text-muted-foreground">Welcome back! Here's your business overview.</p>
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-700">
-          <Calendar className="w-4 h-4 mr-2" />
-          Schedule Job
-        </Button>
+        <CreateJobDialog />
       </div>
 
       {/* Stats Grid */}
@@ -150,19 +157,35 @@ const Dashboard = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <Button className="w-full justify-start" variant="outline">
+            <Button 
+              className="w-full justify-start" 
+              variant="outline"
+              onClick={() => handleQuickAction("Add New Client")}
+            >
               <Users className="w-4 h-4 mr-2" />
               Add New Client
             </Button>
-            <Button className="w-full justify-start" variant="outline">
+            <Button 
+              className="w-full justify-start" 
+              variant="outline"
+              onClick={() => handleQuickAction("Create Job")}
+            >
               <Briefcase className="w-4 h-4 mr-2" />
               Create Job
             </Button>
-            <Button className="w-full justify-start" variant="outline">
+            <Button 
+              className="w-full justify-start" 
+              variant="outline"
+              onClick={() => handleQuickAction("View Schedule")}
+            >
               <Calendar className="w-4 h-4 mr-2" />
               View Schedule
             </Button>
-            <Button className="w-full justify-start" variant="outline">
+            <Button 
+              className="w-full justify-start" 
+              variant="outline"
+              onClick={() => handleQuickAction("Generate Invoice")}
+            >
               <DollarSign className="w-4 h-4 mr-2" />
               Generate Invoice
             </Button>

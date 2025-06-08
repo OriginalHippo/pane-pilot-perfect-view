@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -20,9 +19,19 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { AddClientDialog } from "@/components/AddClientDialog";
+import { useToast } from "@/hooks/use-toast";
 
 const Clients = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const { toast } = useToast();
+
+  const handleClientAction = (action: string, clientName: string) => {
+    toast({
+      title: "Client Action",
+      description: `${action} for ${clientName}`,
+    });
+  };
 
   const clients = [
     {
@@ -84,10 +93,7 @@ const Clients = () => {
           <h1 className="text-3xl font-bold">Clients</h1>
           <p className="text-muted-foreground">Manage your customer relationships</p>
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-700">
-          <Plus className="w-4 h-4 mr-2" />
-          Add Client
-        </Button>
+        <AddClientDialog />
       </div>
 
       {/* Search and Filters */}
@@ -137,10 +143,21 @@ const Clients = () => {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuItem>View Profile</DropdownMenuItem>
-                    <DropdownMenuItem>Schedule Job</DropdownMenuItem>
-                    <DropdownMenuItem>Edit Client</DropdownMenuItem>
-                    <DropdownMenuItem className="text-red-600">Delete</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => handleClientAction("View Profile", client.name)}>
+                      View Profile
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => handleClientAction("Schedule Job", client.name)}>
+                      Schedule Job
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => handleClientAction("Edit Client", client.name)}>
+                      Edit Client
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      className="text-red-600"
+                      onClick={() => handleClientAction("Delete", client.name)}
+                    >
+                      Delete
+                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
@@ -170,7 +187,11 @@ const Clients = () => {
                   <span className="font-bold text-lg">{client.totalJobs}</span>
                 </div>
               </div>
-              <Button className="w-full mt-3" variant="outline">
+              <Button 
+                className="w-full mt-3" 
+                variant="outline"
+                onClick={() => handleClientAction("Schedule Job", client.name)}
+              >
                 <Calendar className="w-4 h-4 mr-2" />
                 Schedule Job
               </Button>
